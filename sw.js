@@ -1,11 +1,13 @@
 self.addEventListener('install', function(event) {
     console.log("install");
     self.addEventListener('fetch', function(event) {
-      if(event.request.url.includes('/widget/tigiMyAccount/templates/orders.template')){
+      if(event.request.url.includes('/widget/tigiMyAccount/')){
             console.log('fetching ->', event.request.url);
-  
+            var newUrl = event.request.url.match(/(\/widget\/tigiMyAccount.[^\?]+)/g)[0];
+            if(newUrl.includes('tigiMyAccount.min.js')) newUrl = newUrl.replace('.min.js', '.js')
+            console.log('NEW URL ->', newUrl);
             event.respondWith(
-                fetch('http://localhost:5000/widget/templates/orders.template').then(function(response) {
+                fetch('http://localhost:5000' + newUrl).then(function(response) {
                     return response;
                 })
             )

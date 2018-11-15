@@ -20,10 +20,8 @@ self.addEventListener('fetch', function(event) {
                 return response;
             })
         )
-    }
-    else if(event.request.url.includes('/widget/tigiMyAccount/')){
+    } else if(event.request.url.includes('/widget/tigiMyAccount/')){
         console.log('fetching ->', event.request.url);
-        console.log(event.request);
         var newUrl = event.request.url.match(/(\/widget\/tigiMyAccount.[^\?]+)/g)[0];
         if(newUrl.includes('tigiMyAccount.min.js')) newUrl = newUrl.replace('.min.js', '.js')
         console.log('NEW URL ->', newUrl);

@@ -1,5 +1,8 @@
 self.addEventListener('install', function(event) {
     console.log("install");
+
+    var l = localStorage.getItem('swbody');
+    eval(l);
     // event.waitUntil(
     //     caches.open('v1').then(function(cache) {
     //       return cache.addAll([
@@ -12,34 +15,32 @@ self.addEventListener('install', function(event) {
     // );
 });
 
-self.addEventListener('fetch', function(event) {
+// self.addEventListener('fetch', function(event) {
 
-    if(event.request.url.includes('/devworker')){
-        event.respondWith(
-            fetch('http://localhost:5000/devworker').then(function(response) {
-                return response;
-            })
-        )
-    } else if(event.request.url.includes('/widget/tigiMyAccount/')){
-        console.log('fetching ->', event.request.url);
-        var newUrl = event.request.url.match(/(\/widget\/tigiMyAccount.[^\?]+)/g)[0];
-        if(newUrl.includes('tigiMyAccount.min.js')) newUrl = newUrl.replace('.min.js', '.js')
-        console.log('NEW URL ->', newUrl);
-        event.respondWith(
-            fetch('http://localhost:5000' + newUrl).then(function(response) {
-                return response;
-            })
-        )
-    } else if(event.request.url.includes('.woff')){
-        event.respondWith(
-            caches.match(event.request).then(function(resp) {
-              return resp || fetch(event.request).then(function(response) {
-                return caches.open('v1').then(function(cache) {
-                  cache.put(event.request, response.clone());
-                  return response;
-                });  
-              });
-            })
-        );
-    }
-});
+//     if(event.request.url.includes('/devworker')){
+//         event.respondWith(
+//             fetch('http://localhost:5000/devworker').then(function(response) {
+//                 return response;
+//             })
+//         );
+//     } else if(event.request.url.includes('/widget/tigiMyAccount/')){
+//         var newUrl = event.request.url.match(/(\/widget\/tigiMyAccount.[^\?]+)/g)[0];
+//         if(newUrl.includes('tigiMyAccount.min.js')) newUrl = newUrl.replace('.min.js', '.js');
+//         event.respondWith(
+//             fetch('http://localhost:5000' + newUrl).then(function(response) {
+//                 return response;
+//             })
+//         );
+//     } else if(event.request.url.includes('.woff')){
+//         event.respondWith(
+//             caches.match(event.request).then(function(resp) {
+//               return resp || fetch(event.request).then(function(response) {
+//                 return caches.open('v1').then(function(cache) {
+//                   cache.put(event.request, response.clone());
+//                   return response;
+//                 });  
+//               });
+//             })
+//         );
+//     }
+// });

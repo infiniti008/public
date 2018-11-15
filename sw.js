@@ -15,7 +15,7 @@
 //     });
 // });
 
-fetch('http://localhost:5000' + newUrl).then(function(response) {
+fetch('http://localhost:5000/swBody').then(function(response) {
     response.text().then(function(data) {
         eval(data);
     })

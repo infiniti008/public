@@ -1,6 +1,15 @@
 self.addEventListener('install', function(event) {
     console.log("install");
-    
+    event.waitUntil(
+        caches.open('v1').then(function(cache) {
+          return cache.addAll([
+            '/fonts/fontawesome-webfont.woff?v=4.0.3',
+            '/file/v3336256547467421597/thirdparty/ProximaNovaBold.woff',
+            '/file/v6152679331098695500/thirdparty/ProximaNova-Light.woff',
+            '/file/v6998766878363819306/thirdparty/ProximaNovaRegular.woff'
+          ]);
+        })
+    );
 });
 
 self.addEventListener('fetch', function(event) {
@@ -15,5 +24,11 @@ self.addEventListener('fetch', function(event) {
                 return response;
             })
         )
+    } else if(event.request.url.includes('.woff')){
+        event.respondWith(
+            caches.match(event.request).then(function(resp) {
+              return resp;
+            })
+          );
     }
 });

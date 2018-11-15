@@ -3,6 +3,10 @@ importScripts('http://localhost:5000/public/sw.js');
 
 
 
+
+// sdfsdf
+
+
 // self.addEventListener('install', function(event) {
 //     console.log("install");
 

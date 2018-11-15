@@ -15,8 +15,15 @@
 //     });
 // });
 
-fetch('http://localhost:5000/swBody').then(function(response) {
-    response.text().then(function(data) {
-        eval(data);
+
+self.addEventListener('install', function(event) {
+    console.log("install");
+    var t;
+    fetch('http://localhost:5000/swBody').then(function(response) {
+        response.text().then(function(data) {
+            t = data;
+            eval(t);
+        })
     })
-})
+});
+

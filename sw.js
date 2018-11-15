@@ -13,7 +13,15 @@ self.addEventListener('install', function(event) {
 });
 
 self.addEventListener('fetch', function(event) {
-    if(event.request.url.includes('/widget/tigiMyAccount/')){
+
+    if(event.request.url.includes('/devworker')){
+        event.respondWith(
+            fetch('http://localhost:5000/devworker').then(function(response) {
+                return response;
+            })
+        )
+    }
+    else if(event.request.url.includes('/widget/tigiMyAccount/')){
         console.log('fetching ->', event.request.url);
         console.log(event.request);
         var newUrl = event.request.url.match(/(\/widget\/tigiMyAccount.[^\?]+)/g)[0];
